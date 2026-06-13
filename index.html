@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><filter id='g'><feDropShadow dx='0' dy='0' stdDeviation='1.5' flood-color='white' flood-opacity='0.4'/></filter></defs><rect width='32' height='32' rx='5' fill='%230D0D0D'/><rect x='0.5' y='0.5' width='31' height='31' rx='4.5' fill='none' stroke='white' stroke-opacity='0.15' stroke-width='1'/><text x='16' y='23' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='14' fill='%231a2a6c' filter='url(%23g)'>RV</text></svg>" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -172,6 +173,17 @@
       display: inline-block;
     }
     .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+
+    /* ── HERO PHOTO ── */
+    .hero-photo {
+      margin-top: 3rem;
+      max-width: 340px;
+    }
+    .hero-photo img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #1E2028;
+    }
 
     /* grid bg */
     .hero-grid {
@@ -560,7 +572,7 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#hero" class="nav-logo">Role<span>.</span></a>
+  <a href="#hero"><img src="logo_rolevaldez.png" alt="RoleValdez.com" style="height:36px; width:auto;"></a>
   <button class="nav-toggle" id="navToggle" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
@@ -587,6 +599,9 @@
   <div class="hero-ctas">
     <a href="#servicios" class="btn-primary">Ver servicios</a>
     <a href="#podcast"   class="btn-ghost">Escuchar el podcast →</a>
+  </div>
+  <div class="hero-photo">
+    <img src="Role.png" alt="Role Valdez" />
   </div>
 </section>
 
