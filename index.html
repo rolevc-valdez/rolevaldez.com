@@ -174,18 +174,26 @@
     }
     .btn-ghost:hover { border-color: var(--text); color: var(--text); }
 
-    /* ── HERO PHOTO ── */
+    /* ── HERO LAYOUT ── */
+    #hero .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+      width: 100%;
+      position: relative;
+    }
     .hero-photo {
-      margin-top: 3rem;
-      max-width: 340px;
+      width: 320px;
+      flex-shrink: 0;
     }
     .hero-photo img {
       width: 100%;
-      border-radius: 12px;
+      border-radius: 16px;
       border: 1px solid #1E2028;
     }
 
-    /* grid bg */
+    /* grid bg — siempre absoluto, fuera del flujo del hero-inner */
     .hero-grid {
       position: absolute;
       inset: 0;
@@ -543,6 +551,8 @@
 
       #hero { padding: 6.5rem 1.2rem 3rem; }
       .hero-tagline { font-size: 0.95rem; }
+      #hero .hero-inner { grid-template-columns: 1fr; }
+      .hero-photo { width: 100%; max-width: 280px; margin: 0 auto; }
 
       .section-wrap { padding: 3.5rem 1.2rem; }
       #contacto { padding: 3.5rem 1.2rem; }
@@ -572,7 +582,7 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#hero"><img src="logo_rolevaldez.png" alt="RoleValdez.com" style="height:36px; width:auto;"></a>
+  <a href="#hero"><img src="logo_rolevaldez.png" alt="RoleValdez.com" style="height:52px; width:auto; display:block;"></a>
   <button class="nav-toggle" id="navToggle" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
@@ -588,20 +598,24 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-grid" aria-hidden="true"></div>
-  <p class="hero-eyebrow">Consultor IT · Podcaster · Creador Digital</p>
-  <h1 class="hero-name">
-    Role
-    <span class="accent-line">Valdez.</span>
-  </h1>
-  <p class="hero-tagline">
-    Conecto sistemas, construyo presencia digital y cuento historias reales sobre tecnología, negocios y la vida en la frontera.
-  </p>
-  <div class="hero-ctas">
-    <a href="#servicios" class="btn-primary">Ver servicios</a>
-    <a href="#podcast"   class="btn-ghost">Escuchar el podcast →</a>
-  </div>
-  <div class="hero-photo">
-    <img src="Role.png" alt="Role Valdez" />
+  <div class="hero-inner">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Consultor IT · Podcaster · Creador Digital · Biker (Charcos MC)</p>
+      <h1 class="hero-name">
+        Role
+        <span class="accent-line">Valdez.</span>
+      </h1>
+      <p class="hero-tagline">
+        Conecto Sistemas, desarrollo mejoras, te cuento historias reales sobre nuestra comunidad con un enfoque optimista y busco siempre apoyar a nuestra ciudad.
+      </p>
+      <div class="hero-ctas">
+        <a href="#servicios" class="btn-primary">Ver servicios</a>
+        <a href="#podcast"   class="btn-ghost">Escuchar el podcast →</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="Role.png" alt="Role Valdez" />
+    </div>
   </div>
 </section>
 
