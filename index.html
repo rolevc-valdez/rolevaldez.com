@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Role Valdez — Consultor IT & Podcast</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0D0D0D;
+      --surface:  #111318;
+      --border:   #1E2028;
+      --accent:   #FF6B35;
+      --accent2:  #FF8F5E;
+      --text:     #F0F0F0;
+      --muted:    #888;
+      --faint:    #333;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-bottom-color: var(--border); }
+
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-links {
+      display: flex;
+      gap: 1.6rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(3.2rem, 11vw, 9rem);
+      font-weight: 700;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: 1.8rem;
+    }
+    .hero-name .accent-line {
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero-tagline {
+      max-width: 500px;
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2.2rem;
+      font-weight: 300;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.75rem 1.6rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+
+    .btn-ghost {
+      border: 1px solid var(--faint);
+      color: var(--muted);
+      padding: 0.75rem 1.6rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+
+    /* grid bg */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 55px 55px;
+      opacity: 0.3;
+      mask-image: radial-gradient(ellipse 70% 60% at 80% 40%, black 0%, transparent 70%);
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      overflow: hidden;
+      background: var(--accent);
+      padding: 0.65rem 0;
+      white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-block;
+      animation: ticker 30s linear infinite;
+    }
+    .ticker-track span {
+      display: inline-block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 0 2rem;
+    }
+    .ticker-track span::before {
+      content: '·';
+      margin-right: 2rem;
+      opacity: 0.5;
+    }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION SHELL ── */
+    .section-wrap {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+      line-height: 1.15;
+    }
+    .section-sub {
+      color: var(--muted);
+      max-width: 480px;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .service-card {
+      background: var(--surface);
+      padding: 1.8rem 1.6rem;
+      transition: background 0.2s;
+    }
+    .service-card:hover { background: #161920; }
+    .service-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+    .service-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+    }
+    .service-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── PODCAST ── */
+    .podcast-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .podcast-visual {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .podcast-art {
+      width: 120px;
+      height: 120px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin: 0 auto 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      animation: pulse-ring 3s ease-in-out infinite;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,53,0.4); }
+      50%       { box-shadow: 0 0 0 18px rgba(255,107,53,0); }
+    }
+    .podcast-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+    .podcast-sub-label { font-size: 0.8rem; color: var(--muted); }
+    .podcast-platforms {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.2rem;
+      justify-content: center;
+    }
+    .platform-badge {
+      background: var(--border);
+      color: var(--muted);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 500;
+    }
+
+    .episode-list { list-style: none; }
+    .episode-item {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+    }
+    .episode-item:last-child { border-bottom: none; }
+    .ep-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+    .ep-title { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+    .ep-desc { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ── PORTFOLIO ── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.1rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.6rem;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .project-tag {
+      display: inline-block;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.65rem;
+    }
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+    }
+    .project-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+    .project-stack {
+      margin-top: 0.9rem;
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .stack-tag {
+      background: var(--faint);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: #777;
+    }
+
+    /* ── BLOG ── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.1rem;
+    }
+    .blog-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.6rem;
+      transition: border-color 0.2s;
+    }
+    .blog-card:hover { border-color: var(--faint); }
+    .blog-date { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 0.45rem; }
+    .blog-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+      line-height: 1.4;
+    }
+    .blog-excerpt { font-size: 0.83rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.9rem; }
+    .blog-read { font-size: 0.78rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+
+    /* ── CONTACT ── */
+    #contacto {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    #contacto .section-label,
+    #contacto .section-title,
+    #contacto .section-sub { text-align: center; max-width: 100%; margin-left: auto; margin-right: auto; }
+
+    .contact-form {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2.2rem;
+      text-align: left;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .form-input, .form-textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 0.9rem;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      transition: border-color 0.2s;
+      outline: none;
+      width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { min-height: 120px; resize: vertical; }
+    .form-submit {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.82rem 2rem;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+      width: 100%;
+    }
+    .form-submit:hover { background: var(--accent2); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .footer-logo span { color: var(--accent); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 700px) {
+      nav { padding: 0.9rem 1.2rem; }
+
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 56px; left: 0; right: 0;
+        background: rgba(13,13,13,0.97);
+        backdrop-filter: blur(16px);
+        flex-direction: column;
+        gap: 0;
+        padding: 1rem 0 1.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block;
+        padding: 0.85rem 1.5rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+
+      #hero { padding: 6.5rem 1.2rem 3rem; }
+      .hero-tagline { font-size: 0.95rem; }
+
+      .section-wrap { padding: 3.5rem 1.2rem; }
+      #contacto { padding: 3.5rem 1.2rem; }
+
+      .podcast-layout { grid-template-columns: 1fr; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem 1.2rem;
+      }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none; }
+      .podcast-art  { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Role<span>.</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#servicios"  onclick="closeMenu()">Servicios</a></li>
+    <li><a href="#podcast"   onclick="closeMenu()">Podcast</a></li>
+    <li><a href="#portafolio" onclick="closeMenu()">Portafolio</a></li>
+    <li><a href="#blog"      onclick="closeMenu()">Blog</a></li>
+    <li><a href="#contacto"  onclick="closeMenu()">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <p class="hero-eyebrow">Consultor IT · Podcaster · Creador Digital</p>
+  <h1 class="hero-name">
+    Role
+    <span class="accent-line">Valdez.</span>
+  </h1>
+  <p class="hero-tagline">
+    Conecto sistemas, construyo presencia digital y cuento historias reales sobre tecnología, negocios y la vida en la frontera.
+  </p>
+  <div class="hero-ctas">
+    <a href="#servicios" class="btn-primary">Ver servicios</a>
+    <a href="#podcast"   class="btn-ghost">Escuchar el podcast →</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Consultor IT</span><span>Dando el Rol</span><span>Redes Sociales</span>
+    <span>Sitios Web</span><span>Publicidad Digital</span><span>Gestión Local</span>
+    <span>Python</span><span>Freshservice</span><span>Podcast</span><span>Frontera</span>
+    <span>Consultor IT</span><span>Dando el Rol</span><span>Redes Sociales</span>
+    <span>Sitios Web</span><span>Publicidad Digital</span><span>Gestión Local</span>
+    <span>Python</span><span>Freshservice</span><span>Podcast</span><span>Frontera</span>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-wrap">
+    <p class="section-label">Lo que hago</p>
+    <h2 class="section-title">Servicios</h2>
+    <p class="section-sub">Soluciones prácticas para negocios locales y empresas que quieren crecer con tecnología.</p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">📣</div>
+        <div class="service-title">Comerciales y Publicidad</div>
+        <div class="service-desc">Producción de anuncios digitales, campañas en redes sociales y contenido publicitario que conecta con tu audiencia local y regional.</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <div class="service-title">Manejo y Mejora de Redes Sociales</div>
+        <div class="service-desc">Gestión profesional de tus perfiles en Facebook, Instagram, TikTok y más — con estrategia, contenido consistente y crecimiento real.</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <div class="service-title">Creación de Sitios Web y Páginas</div>
+        <div class="service-desc">Diseño y desarrollo de sitios web modernos, páginas de negocio y landing pages — rápidos, optimizados para móvil y fáciles de administrar.</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🛠️</div>
+        <div class="service-title">Gestión de Problemas Locales</div>
+        <div class="service-desc">Soporte y resolución de problemas tecnológicos para negocios locales: internet, equipos, software, procesos y lo que haga falta.</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🗂️</div>
+        <div class="service-title">Consultoría IT</div>
+        <div class="service-desc">Implementación y administración de sistemas como Freshservice y Device42. Inventario limpio, datos confiables, decisiones informadas.</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <div class="service-title">Automatización & APIs</div>
+        <div class="service-desc">Scripts en Python e integraciones que conectan tus plataformas y eliminan trabajo repetitivo. Más tiempo para lo que importa.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PODCAST -->
+<section id="podcast">
+  <div class="section-wrap">
+    <div class="podcast-layout">
+      <div class="podcast-visual">
+        <div class="podcast-art">🎙️</div>
+        <div class="podcast-name">Dando el Rol</div>
+        <div class="podcast-sub-label">Historias reales. Sin filtro.</div>
+        <div class="podcast-platforms">
+          <span class="platform-badge">YouTube</span>
+          <span class="platform-badge">TikTok</span>
+          <span class="platform-badge">Facebook</span>
+          <span class="platform-badge">Instagram</span>
+        </div>
+      </div>
+      <div class="podcast-info">
+        <p class="section-label">Podcast</p>
+        <h2 class="section-title">Dando el Rol</h2>
+        <p class="section-sub">Conversaciones honestas sobre tecnología, consultoría, gobierno, vida en la frontera y todo lo que no te cuentan en los manuales.</p>
+        <ul class="episode-list">
+          <li class="episode-item">
+            <span class="ep-num">EP·01</span>
+            <div>
+              <div class="ep-title">¿Cómo empecé en IT sin haber estudiado sistemas?</div>
+              <div class="ep-desc">La historia de cómo el trabajo duro y la curiosidad abren puertas que los títulos no alcanzan.</div>
+            </div>
+          </li>
+          <li class="episode-item">
+            <span class="ep-num">EP·02</span>
+            <div>
+              <div class="ep-title">Gobierno, burocracia y tecnología: lo que nadie te dice</div>
+              <div class="ep-desc">Experiencias reales trabajando entre el sector público y el privado en la frontera México-EE.UU.</div>
+            </div>
+          </li>
+          <li class="episode-item">
+            <span class="ep-num">EP·03</span>
+            <div>
+              <div class="ep-title">Automatizar o morir: el futuro del trabajo en IT</div>
+              <div class="ep-desc">Por qué aprender APIs y Python puede cambiar completamente tu carrera como consultor.</div>
+            </div>
+          </li>
+        </ul>
+        <br/>
+        <a href="#" class="btn-primary">Ver todos los episodios</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PORTAFOLIO -->
+<section id="portafolio">
+  <div class="section-wrap">
+    <p class="section-label">Proyectos</p>
+    <h2 class="section-title">Portafolio</h2>
+    <p class="section-sub">Casos reales. Problemas resueltos. Resultados que se pueden medir.</p>
+    <div class="portfolio-grid">
+
+      <div class="project-card">
+        <span class="project-tag">Redes Sociales</span>
+        <div class="project-title">Crecimiento de Canal — Dando el Rol</div>
+        <div class="project-desc">Estrategia de contenido multiplataforma en YouTube, TikTok, Facebook e Instagram con análisis de rendimiento y mejora continua.</div>
+        <div class="project-stack">
+          <span class="stack-tag">YouTube</span><span class="stack-tag">TikTok</span><span class="stack-tag">Shorts</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Sitio Web</span>
+        <div class="project-title">Portal de Empleo Local — APSON</div>
+        <div class="project-desc">Bolsa de trabajo local en WordPress con WP Job Manager para conectar empleadores y candidatos en la región fronteriza.</div>
+        <div class="project-stack">
+          <span class="stack-tag">WordPress</span><span class="stack-tag">HTML</span><span class="stack-tag">JSON</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Consultoría IT</span>
+        <div class="project-title">Sincronización CMDB Empresarial</div>
+        <div class="project-desc">Reconciliación de 520+ aplicaciones entre SharePoint y Freshservice, con 543+ cambios a nivel de campo aplicados vía API.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span><span class="stack-tag">Freshservice API</span><span class="stack-tag">SharePoint</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Automatización</span>
+        <div class="project-title">Motor de Matching Workday ↔ CMDB</div>
+        <div class="project-desc">Engine de 11 estrategias para alinear ubicaciones de RH contra el CMDB. 459 coincidencias activas, 119 inactivas procesadas.</div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span><span class="stack-tag">pandas</span><span class="stack-tag">fuzzy match</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-wrap">
+    <p class="section-label">Ideas & Reflexiones</p>
+    <h2 class="section-title">Blog</h2>
+    <p class="section-sub">Lo que aprendo, lo que me pregunto y lo que me parece importante compartir.</p>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-date">Próximamente</div>
+        <div class="blog-title">Por qué todo consultor IT debería aprender Python (aunque sea un poco)</div>
+        <div class="blog-excerpt">No necesitas ser programador. Pero saber automatizar una tarea repetitiva puede cambiarte la vida.</div>
+        <a href="#" class="blog-read">Leer →</a>
+      </div>
+      <div class="blog-card">
+        <div class="blog-date">Próximamente</div>
+        <div class="blog-title">Redes sociales para negocios locales: lo que sí funciona en la frontera</div>
+        <div class="blog-excerpt">No es lo mismo hacer contenido para CDMX que para una ciudad fronteriza. La audiencia, el ritmo y el tono son distintos.</div>
+        <a href="#" class="blog-read">Leer →</a>
+      </div>
+      <div class="blog-card">
+        <div class="blog-date">Próximamente</div>
+        <div class="blog-title">Vivir y trabajar en la frontera: ventaja competitiva o zona de confort</div>
+        <div class="blog-excerpt">La frontera te da perspectiva que pocas personas tienen. También te puede anclar si no tienes cuidado.</div>
+        <a href="#" class="blog-read">Leer →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <p class="section-label">Hablemos</p>
+  <h2 class="section-title">¿Tienes un proyecto?</h2>
+  <p class="section-sub">Ya sea consultoría IT, redes sociales, sitio web o simplemente una pregunta — escríbeme.</p>
+
+  <!-- Cambia YOUR_FORM_ID por tu ID de Formspree después de registrarte -->
+  <form class="contact-form" action="https://formspree.io/f/xnjyoerk" method="POST" id="contactForm" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="nombre">Nombre</label>
+        <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="tu@email.com" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="telefono">Teléfono / WhatsApp</label>
+      <input class="form-input" type="tel" id="telefono" name="telefono" placeholder="+52 631 000 0000" />
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="asunto">Asunto</label>
+      <input class="form-input" type="text" id="asunto" name="asunto" placeholder="¿En qué puedo ayudarte?" />
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="mensaje">Mensaje</label>
+      <textarea class="form-textarea" id="mensaje" name="mensaje" placeholder="Cuéntame sobre tu proyecto o pregunta..." required></textarea>
+    </div>
+    <button type="submit" class="form-submit" id="submitBtn">Enviar mensaje →</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Role<span>Valdez</span><span style="color:var(--muted)">.</span></div>
+  <div>© 2026 · Agua Prieta, Sonora</div>
+</footer>
+
+<script>
+  // Nav scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const navLinks  = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  function closeMenu() {
+    navToggle.classList.remove('open');
+    navLinks.classList.remove('open');
+  }
+
+  // Form submit con Formspree
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const btn  = document.getElementById('submitBtn');
+    const form = document.getElementById('contactForm');
+
+    // Si aún no has configurado Formspree, solo muestra confirmación visual
+    if (form.action.includes('xnjyoerk')) {
+      btn.textContent = '✓ Configurar Formspree para activar';
+      btn.style.background = '#555';
+      setTimeout(() => {
+        btn.textContent = 'Enviar mensaje →';
+        btn.style.background = '';
+      }, 3000);
+      return;
+    }
+
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    try {
+      const data = new FormData(form);
+      const res  = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        btn.textContent = '✓ Mensaje enviado';
+        btn.style.background = '#2a9d5c';
+        form.reset();
+      } else {
+        btn.textContent = 'Error — intenta de nuevo';
+        btn.style.background = '#c0392b';
+      }
+    } catch {
+      btn.textContent = 'Error de conexión';
+      btn.style.background = '#c0392b';
+    }
+
+    setTimeout(() => {
+      btn.textContent = 'Enviar mensaje →';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
+  }
+</script>
+
+</body>
+</html>
