@@ -103,7 +103,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 8rem 2rem 4rem;
+      padding: 6rem 4rem 4rem;
       position: relative;
       overflow: hidden;
     }
@@ -119,12 +119,12 @@
 
     .hero-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(3.2rem, 11vw, 9rem);
+      font-size: clamp(2.8rem, 9vw, 7rem);
       font-weight: 700;
-      line-height: 0.92;
+      line-height: 0.95;
       letter-spacing: -0.04em;
       color: var(--text);
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.4rem;
     }
     .hero-name .accent-line {
       color: var(--accent);
@@ -177,20 +177,21 @@
     /* ── HERO LAYOUT ── */
     #hero .hero-inner {
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 3rem;
+      grid-template-columns: 1fr 380px;
+      gap: 2rem;
       align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
       width: 100%;
-      position: relative;
     }
     .hero-photo {
-      width: 320px;
-      flex-shrink: 0;
+      width: 100%;
     }
     .hero-photo img {
       width: 100%;
       border-radius: 16px;
       border: 1px solid #1E2028;
+      display: block;
     }
 
     /* grid bg — siempre absoluto, fuera del flujo del hero-inner */
@@ -549,10 +550,10 @@
       }
       .nav-links li:last-child a { border-bottom: none; }
 
-      #hero { padding: 6.5rem 1.2rem 3rem; }
+      #hero { padding: 5.5rem 1.2rem 3rem; }
       .hero-tagline { font-size: 0.95rem; }
       #hero .hero-inner { grid-template-columns: 1fr; }
-      .hero-photo { width: 100%; max-width: 280px; margin: 0 auto; }
+      .hero-photo { max-width: 280px; margin: 0 auto; }
 
       .section-wrap { padding: 3.5rem 1.2rem; }
       #contacto { padding: 3.5rem 1.2rem; }
@@ -582,7 +583,7 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#hero"><img src="logo_rolevaldez.png" alt="RoleValdez.com" style="height:52px; width:auto; display:block;"></a>
+  <a href="#hero"><img src="logo_rolevaldezhueso.png" alt="RoleValdez.com" style="height:52px; width:auto; display:block;"></a>
   <button class="nav-toggle" id="navToggle" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
