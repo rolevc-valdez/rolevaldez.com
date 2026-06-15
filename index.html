@@ -317,21 +317,18 @@
       padding: 2rem;
       text-align: center;
     }
-    .podcast-art {
-      width: 120px;
-      height: 120px;
-      background: var(--accent);
-      border-radius: 50%;
+    .podcast-art-img {
+      width: 200px;
+      height: 200px;
       margin: 0 auto 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      animation: pulse-ring 3s ease-in-out infinite;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #000;
     }
-    @keyframes pulse-ring {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,53,0.4); }
-      50%       { box-shadow: 0 0 0 18px rgba(255,107,53,0); }
+    .podcast-art-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .podcast-name {
       font-family: 'Space Grotesk', sans-serif;
@@ -355,6 +352,12 @@
       border-radius: 20px;
       font-size: 0.72rem;
       font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .platform-badge:hover {
+      background: var(--accent);
+      color: #fff;
     }
 
     .episode-list { list-style: none; }
@@ -576,7 +579,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       .ticker-track { animation: none; }
-      .podcast-art  { animation: none; }
     }
   </style>
 </head>
@@ -688,19 +690,21 @@
   <div class="section-wrap">
     <div class="podcast-layout">
       <div class="podcast-visual">
-        <div class="podcast-art">🎙️</div>
-        <div class="podcast-name">Dando el Rol</div>
+        <div class="podcast-art-img">
+          <img src="logoPodcastYoutube.png" alt="Dando un Rol con el Role" />
+        </div>
+        <div class="podcast-name">Dando un Rol con el Role</div>
         <div class="podcast-sub-label">Un podcast diferente con historias reales.</div>
         <div class="podcast-platforms">
-          <span class="platform-badge">YouTube</span>
-          <span class="platform-badge">TikTok</span>
-          <span class="platform-badge">Facebook</span>
-          <span class="platform-badge">Instagram</span>
+          <a href="https://www.youtube.com/@DandoUnRolConElRole" target="_blank" class="platform-badge">YouTube</a>
+          <a href="https://www.tiktok.com/@rolevldz23" target="_blank" class="platform-badge">TikTok</a>
+          <a href="https://www.facebook.com/DandoUnRolConElRole/" target="_blank" class="platform-badge">Facebook</a>
+          <a href="https://www.instagram.com/dando_un_rol_con_el_role/" target="_blank" class="platform-badge">Instagram</a>
         </div>
       </div>
       <div class="podcast-info">
         <p class="section-label">Podcast</p>
-        <h2 class="section-title">Dando el Rol</h2>
+        <h2 class="section-title">Dando un Rol con el Role</h2>
         <p class="section-sub">Entrevistas con personalidades locales y relevantes, visitando sitios representativos de nuestra frontera con un enfoque optimista y en pro de la comunidad.</p>
         <ul class="episode-list">
           <li class="episode-item">
