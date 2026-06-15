@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Episodios — Dando un Rol con el Role</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0D0D0D; --surface: #111318; --border: #1E2028;
+      --accent: #FF6B35; --accent2: #FF8F5E; --text: #F0F0F0; --muted: #888;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.4rem 2rem;
+      background: rgba(13,13,13,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav a img { height: 52px; width: auto; }
+    .nav-back {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    .page-header {
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .page-header img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
+    .page-header-text h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700; letter-spacing: -0.03em;
+    }
+    .page-header-text p { color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
+
+    .platform-links {
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem 2rem;
+      display: flex; gap: 0.6rem; flex-wrap: wrap;
+    }
+    .platform-links a {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--muted); padding: 0.35rem 1rem; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 500; text-decoration: none;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .platform-links a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .episodes-grid {
+      max-width: 1100px; margin: 0 auto; padding: 1rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .ep-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+      transition: border-color 0.25s, transform 0.2s;
+      text-decoration: none; display: block;
+    }
+    .ep-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+    .ep-thumb {
+      width: 100%; aspect-ratio: 16/9;
+      object-fit: cover; display: block;
+      background: var(--border);
+    }
+    .ep-thumb-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+    }
+
+    .ep-body { padding: 1rem 1.1rem 1.2rem; }
+    .ep-number {
+      font-size: 0.68rem; font-weight: 700; color: var(--accent);
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem;
+    }
+    .ep-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem; font-weight: 600; color: var(--text);
+      line-height: 1.4; margin-bottom: 0.4rem;
+    }
+    .ep-date { font-size: 0.75rem; color: var(--muted); }
+
+    .loading {
+      text-align: center; padding: 5rem 2rem;
+      color: var(--muted); font-size: 0.95rem;
+    }
+    .loading-spinner {
+      width: 36px; height: 36px; border: 3px solid var(--border);
+      border-top-color: var(--accent); border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-msg {
+      text-align: center; padding: 4rem 2rem; color: var(--muted);
+    }
+    .error-msg a { color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 1.5rem 2rem;
+      text-align: center; color: var(--muted); font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      nav { padding: 0.4rem 1rem; }
+      nav a img { height: 38px; }
+      .page-header { padding: 2rem 1.2rem 1rem; }
+      .platform-links { padding: 0 1.2rem 1.5rem; }
+      .episodes-grid { padding: 0.5rem 1.2rem 4rem; grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html"><img src="logo_rolevaldezhueso.png" alt="RoleValdez.com" /></a>
+  <a href="index.html#podcast" class="nav-back">← Volver</a>
+</nav>
+
+<div class="page-header">
+  <img src="logoPodcastYoutube.png" alt="Dando un Rol con el Role" />
+  <div class="page-header-text">
+    <h1>Dando un Rol con el Role</h1>
+    <p>Todos los episodios — Historias reales de nuestra frontera.</p>
+  </div>
+</div>
+
+<div class="platform-links">
+  <a href="https://www.youtube.com/@DandoUnRolConElRole" target="_blank">▶ YouTube</a>
+  <a href="https://www.tiktok.com/@rolevldz23" target="_blank">TikTok</a>
+  <a href="https://www.facebook.com/DandoUnRolConElRole/" target="_blank">Facebook</a>
+  <a href="https://www.instagram.com/dando_un_rol_con_el_role/" target="_blank">Instagram</a>
+  <a href="https://open.spotify.com/show/1494ghpOchOhNdowL8t2V5" target="_blank">Spotify</a>
+  <a href="https://podcasts.apple.com/mx/podcast/dando-un-rol-con-el-role/id1865520630" target="_blank">Apple Podcasts</a>
+</div>
+
+<div id="episodes-container">
+  <div class="loading">
+    <div class="loading-spinner"></div>
+    Cargando episodios...
+  </div>
+</div>
+
+<footer>© 2026 · RoleValdez.com · Agua Prieta, Sonora</footer>
+
+<script>
+  const API_KEY     = 'AIzaSyDdO8onu67E-bKvDmvQ66v2__srzXyvRYI';
+  const PLAYLIST_ID = 'PLOP6i2TCCXadbjQYrBhXyC6Hx1cAo5f3-';
+  const MAX_RESULTS = 50;
+
+  async function fetchAllVideos() {
+    let videos = [];
+    let pageToken = '';
+    do {
+      const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${PLAYLIST_ID}&key=${API_KEY}${pageToken ? '&pageToken=' + pageToken : ''}`;
+      const res  = await fetch(url);
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+      videos    = videos.concat(data.items);
+      pageToken = data.nextPageToken || '';
+    } while (pageToken);
+    return videos;
+  }
+
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  async function renderEpisodes() {
+    const container = document.getElementById('episodes-container');
+    try {
+      const videos = await fetchAllVideos();
+      if (!videos.length) {
+        container.innerHTML = '<div class="error-msg">No se encontraron episodios.</div>';
+        return;
+      }
+
+      const grid = document.createElement('div');
+      grid.className = 'episodes-grid';
+
+      videos.forEach((item, index) => {
+        const s       = item.snippet;
+        const videoId = s.resourceId.videoId;
+        const thumb   = s.thumbnails?.maxres?.url || s.thumbnails?.high?.url || s.thumbnails?.medium?.url || '';
+        const epNum   = String(videos.length - index).padStart(2, '0');
+
+        const card = document.createElement('a');
+        card.className = 'ep-card';
+        card.href      = `https://www.youtube.com/watch?v=${videoId}`;
+        card.target    = '_blank';
+        card.rel       = 'noopener';
+
+        card.innerHTML = `
+          ${thumb
+            ? `<img class="ep-thumb" src="${thumb}" alt="${s.title}" loading="lazy" />`
+            : `<div class="ep-thumb-placeholder">🎙️</div>`
+          }
+          <div class="ep-body">
+            <div class="ep-number">EP · ${epNum}</div>
+            <div class="ep-title">${s.title}</div>
+            <div class="ep-date">${formatDate(s.publishedAt)}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      container.innerHTML = '';
+      container.appendChild(grid);
+
+    } catch (err) {
+      container.innerHTML = `
+        <div class="error-msg">
+          <p>Error cargando episodios: ${err.message}</p>
+          <p style="margin-top:1rem;">
+            <a href="https://www.youtube.com/@DandoUnRolConElRole" target="_blank">
+              Ver canal directamente en YouTube →
+            </a>
+          </p>
+        </div>`;
+    }
+  }
+
+  renderEpisodes();
+</script>
+
+</body>
+</html>
