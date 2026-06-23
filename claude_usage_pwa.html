@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Claude Usage">
+<title>Claude Usage</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --bg:      #0d0d0d;
+    --bg2:     #1c1c1c;
+    --bg3:     #252525;
+    --accent:  #FF6B35;
+    --text:    #ffffff;
+    --mid:     #aaaaaa;
+    --dim:     #555555;
+    --green:   #4ade80;
+    --yellow:  #facc15;
+    --red:     #f87171;
+    --border:  #2a2a2a;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    min-height: 100dvh;
+    padding: env(safe-area-inset-top, 20px) 0 env(safe-area-inset-bottom, 20px);
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .diamond { color: var(--accent); font-size: 14px; }
+  .title { font-size: 15px; font-weight: 700; letter-spacing: 1.5px; }
+  .sync-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--dim);
+    transition: background 0.4s;
+  }
+  .sync-dot.ok    { background: var(--green); }
+  .sync-dot.error { background: var(--red); }
+
+  /* Last updated */
+  .last-updated {
+    text-align: center;
+    font-size: 12px;
+    color: var(--dim);
+    padding: 10px 0 4px;
+  }
+
+  /* Bars section */
+  .bars {
+    padding: 8px 22px 4px;
+  }
+
+  .bar-item {
+    margin-bottom: 18px;
+  }
+  .bar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .bar-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+  .bar-right {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .bar-tokens {
+    font-size: 12px;
+    color: var(--mid);
+  }
+  .bar-pct {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .bar-track {
+    height: 8px;
+    background: #222;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+    width: 0%;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 22px 16px;
+  }
+
+  /* Stats grid */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0 16px;
+  }
+  .stat-card {
+    background: var(--bg2);
+    border-radius: 14px;
+    padding: 16px 12px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--mid);
+    letter-spacing: 0.3px;
+  }
+
+  /* Footer */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 22px 8px;
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+  .footer-text {
+    font-size: 12px;
+    color: var(--mid);
+  }
+
+  /* Refresh button */
+  .refresh-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--mid);
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-appearance: none;
+  }
+  .refresh-btn:active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  /* Loading / error */
+  .state-msg {
+    text-align: center;
+    padding: 60px 30px;
+    color: var(--mid);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .state-msg .icon { font-size: 40px; margin-bottom: 12px; }
+
+  /* Spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+
+  /* Pulse on refresh */
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50%      { opacity: 0.4; }
+  }
+  .refreshing .bar-fill { animation: pulse 1s ease infinite; }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div class="state-msg">
+    <div class="spinner"></div>
+    Cargando datos...
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://ikzazkclkakeckphwcld.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlremF6a2Nsa2FrZWNrcGh3Y2xkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NTU3NzMsImV4cCI6MjA5NDAzMTc3M30.RTvSAXmgYYr1ZyxtfZbgaZgwzJJCo27E88mm9CxQejs";
+
+function fmtTokens(t) {
+  if (t >= 1_000_000) return (t / 1_000_000).toFixed(1) + "M";
+  if (t >= 1_000)     return Math.round(t / 1_000) + "K";
+  return t ? String(t) : "0";
+}
+
+function barColor(pct, base) {
+  if (pct >= 90) return "var(--red)";
+  if (pct >= 70) return "var(--yellow)";
+  return base;
+}
+
+function timeAgo(utcStr) {
+  const diff = Math.floor((Date.now() - new Date(utcStr).getTime()) / 1000);
+  if (diff < 60)   return "justo ahora";
+  if (diff < 3600) return `hace ${Math.floor(diff/60)}m`;
+  const h = Math.floor(diff/3600);
+  const m = Math.floor((diff%3600)/60);
+  return `hace ${h}h ${String(m).padStart(2,"0")}m`;
+}
+
+function render(d, syncOk) {
+  const bars = [
+    { label: "SESIÓN (5h)", pct: d.session_pct, tokens: d.tokens_session, color: "var(--accent)" },
+    { label: "HOY",         pct: d.daily_pct,   tokens: d.tokens_today,   color: "var(--yellow)" },
+    { label: "SEMANA",      pct: d.weekly_pct,  tokens: d.tokens_week,    color: "var(--green)"  },
+  ];
+
+  const updatedAt = d.updated_at ? timeAgo(d.updated_at) : "—";
+  const lastAct   = d.last_activity || "—";
+
+  document.getElementById("app").innerHTML = `
+    <div class="header">
+      <div class="header-left">
+        <span class="diamond">◆</span>
+        <span class="title">CLAUDE CODE</span>
+      </div>
+      <div class="sync-dot ${syncOk ? "ok" : "error"}" title="${syncOk ? "Sincronizado" : "Sin conexión"}"></div>
+    </div>
+
+    <div class="last-updated">Actualizado ${updatedAt}</div>
+
+    <div class="bars">
+      ${bars.map(b => `
+        <div class="bar-item">
+          <div class="bar-top">
+            <span class="bar-label">${b.label}</span>
+            <div class="bar-right">
+              <span class="bar-tokens">${fmtTokens(b.tokens)}</span>
+              <span class="bar-pct" style="color:${barColor(b.pct, b.color)}">${Math.round(b.pct)}%</span>
+            </div>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill"
+                 style="width:${Math.min(b.pct,100)}%;background:${barColor(b.pct, b.color)}">
+            </div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="grid">
+      <div class="stat-card">
+        <div class="stat-value">${fmtTokens(d.tokens_session)}</div>
+        <div class="stat-label">tokens sesión</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${fmtTokens(d.tokens_today)}</div>
+        <div class="stat-label">tokens hoy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${fmtTokens(d.tokens_week)}</div>
+        <div class="stat-label">tokens semana</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${fmtTokens(d.tokens_total)}</div>
+        <div class="stat-label">tokens total</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">⏱ ${lastAct}</span>
+      <button class="refresh-btn" onclick="fetchData()">↻ Actualizar</button>
+    </div>
+  `;
+}
+
+function renderError() {
+  document.getElementById("app").innerHTML = `
+    <div class="state-msg">
+      <div class="icon">☁️</div>
+      Sin datos disponibles.<br>
+      Asegúrate de que el widget<br>esté corriendo en tu PC.
+      <br><br>
+      <button class="refresh-btn" onclick="fetchData()" style="margin:0 auto;display:block">
+        ↻ Reintentar
+      </button>
+    </div>
+  `;
+}
+
+async function fetchData() {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/claude_usage?id=eq.1&select=*`,
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+        }
+      }
+    );
+    const rows = await res.json();
+    if (rows && rows.length > 0) {
+      render(rows[0], true);
+    } else {
+      renderError();
+    }
+  } catch (e) {
+    renderError();
+  }
+}
+
+// Cargar al inicio
+fetchData();
+
+// Auto-refresh cada 30s
+setInterval(fetchData, 30_000);
+</script>
+</body>
+</html>
