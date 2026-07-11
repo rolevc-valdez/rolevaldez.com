@@ -228,6 +228,43 @@
       object-position: right center;
       z-index: 0;
       pointer-events: none;
+      -webkit-mask-image: linear-gradient(
+        to left,
+        rgba(0,0,0,0.95) 0%,
+        rgba(0,0,0,0.9) 40%,
+        rgba(0,0,0,0.4) 65%,
+        transparent 85%
+      ),
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 8%,
+        black 92%,
+        transparent 100%
+      );
+      -webkit-mask-composite: destination-in;
+      mask-image: linear-gradient(
+        to left,
+        rgba(0,0,0,0.95) 0%,
+        rgba(0,0,0,0.9) 40%,
+        rgba(0,0,0,0.4) 65%,
+        transparent 85%
+      ),
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 8%,
+        black 92%,
+        transparent 100%
+      );
+      mask-composite: intersect;
+    }
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.18;
     }
 
     /* ── TICKER ── */
@@ -626,6 +663,7 @@
 <!-- HERO -->
 <section id="hero">
   <img src="Role.png" class="hero-bg-img" aria-hidden="true" alt="" />
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-content">
@@ -1111,6 +1149,63 @@
     if(window.scrollY > 300){ btn.classList.add('visible'); }
     else { btn.classList.remove('visible'); }
   });
+})();
+</script>
+
+<script>
+(function(){
+  var canvas = document.getElementById('hero-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var particles = [];
+  var FONT_SIZE = 11;
+  var COUNT = 60;
+
+  function resize(){
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function random(min, max){ return Math.random()*(max-min)+min; }
+
+  for(var i=0; i<COUNT; i++){
+    particles.push({
+      x: random(0, canvas.width),
+      y: random(0, canvas.height),
+      speed: random(0.3, 1.1),
+      char: Math.random() > 0.5 ? '1' : '0',
+      opacity: random(0.3, 1),
+      size: random(9, 14),
+      switchTimer: random(0, 80),
+      switchInterval: random(40, 120)
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(function(p){
+      p.y -= p.speed;
+      p.switchTimer++;
+      if(p.switchTimer > p.switchInterval){
+        p.char = Math.random() > 0.5 ? '1' : '0';
+        p.switchTimer = 0;
+        p.opacity = random(0.3, 1);
+      }
+      if(p.y < -20){
+        p.y = canvas.height + 20;
+        p.x = random(0, canvas.width);
+      }
+      ctx.save();
+      ctx.font = 'bold ' + p.size + 'px monospace';
+      ctx.fillStyle = 'rgba(255,107,53,' + p.opacity + ')';
+      ctx.fillText(p.char, p.x, p.y);
+      ctx.restore();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
 })();
 </script>
 </body>
