@@ -219,43 +219,38 @@
 
     .hero-bg-img {
       position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 105%;
+      right: 2%;
+      bottom: 0;
+      height: 100%;
       width: auto;
       object-fit: contain;
-      object-position: right center;
+      object-position: bottom right;
       z-index: 0;
       pointer-events: none;
       -webkit-mask-image: linear-gradient(
         to left,
-        rgba(0,0,0,0.95) 0%,
-        rgba(0,0,0,0.9) 40%,
-        rgba(0,0,0,0.4) 65%,
+        black 30%,
+        rgba(0,0,0,0.6) 60%,
         transparent 85%
       ),
       linear-gradient(
         to bottom,
         transparent 0%,
-        black 8%,
-        black 92%,
-        transparent 100%
+        black 5%,
+        black 100%
       );
       -webkit-mask-composite: destination-in;
       mask-image: linear-gradient(
         to left,
-        rgba(0,0,0,0.95) 0%,
-        rgba(0,0,0,0.9) 40%,
-        rgba(0,0,0,0.4) 65%,
+        black 30%,
+        rgba(0,0,0,0.6) 60%,
         transparent 85%
       ),
       linear-gradient(
         to bottom,
         transparent 0%,
-        black 8%,
-        black 92%,
-        transparent 100%
+        black 5%,
+        black 100%
       );
       mask-composite: intersect;
     }
