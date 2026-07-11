@@ -602,7 +602,7 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#hero"><img src="logorv.png" alt="RoleValdez.com" style="height:320px; width:auto; margin: -40px 0;"></a>
+  <a href="#hero"><img src="logorv.png" alt="RoleValdez.com" style="height:240px; width:auto; margin: -30px 0;"></a>
   <button class="nav-toggle" id="navToggle" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
@@ -623,7 +623,7 @@
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-content">
-      <p class="hero-eyebrow">Consultor IT · Podcaster · Creador Digital · Biker (Charcos MC)</p>
+      <p class="hero-eyebrow">Consultor IT · Podcaster · Creador Digital · Desarrollador</p>
       <h1 class="hero-name">
         Role
         <span class="accent-line">Valdez.</span>
@@ -1114,32 +1114,35 @@
   if(!canvas) return;
   var ctx = canvas.getContext('2d');
   var particles = [];
-  var FONT_SIZE = 11;
   var COUNT = 60;
-
-  function resize(){
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
+  var initialized = false;
 
   function random(min, max){ return Math.random()*(max-min)+min; }
 
-  for(var i=0; i<COUNT; i++){
-    particles.push({
-      x: random(0, canvas.width),
-      y: random(0, canvas.height),
-      speed: random(0.3, 1.1),
-      char: Math.random() > 0.5 ? '1' : '0',
-      opacity: random(0.3, 1),
-      size: random(9, 14),
-      switchTimer: random(0, 80),
-      switchInterval: random(40, 120)
-    });
+  function resize(){
+    var rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width || canvas.parentElement.offsetWidth;
+    canvas.height = rect.height || canvas.parentElement.offsetHeight;
+    if(!initialized && canvas.width > 0){
+      initialized = true;
+      particles = [];
+      for(var i=0; i<COUNT; i++){
+        particles.push({
+          x: random(0, canvas.width),
+          y: random(0, canvas.height),
+          speed: random(0.3, 1.1),
+          char: Math.random() > 0.5 ? '1' : '0',
+          opacity: random(0.3, 1),
+          size: random(9, 14),
+          switchTimer: random(0, 80),
+          switchInterval: random(40, 120)
+        });
+      }
+    }
   }
 
   function draw(){
+    if(canvas.width === 0 || canvas.height === 0){ resize(); }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(function(p){
       p.y -= p.speed;
@@ -1161,7 +1164,14 @@
     });
     requestAnimationFrame(draw);
   }
-  draw();
+
+  // Wait for layout to be ready
+  if(document.readyState === 'complete'){
+    resize(); draw();
+  } else {
+    window.addEventListener('load', function(){ resize(); draw(); });
+  }
+  window.addEventListener('resize', resize);
 })();
 </script>
 </body>
