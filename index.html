@@ -277,6 +277,17 @@
     @keyframes flash { from { filter: brightness(1); } to { filter: brightness(2) drop-shadow(0 0 10px #FF6B35); } }
     @keyframes swing { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
 
+
+    .stack-link {
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .stack-link:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
     /* ── TICKER ── */
     .ticker-wrap {
       overflow: hidden;
@@ -889,11 +900,13 @@
     <div class="portfolio-grid">
 
       <div class="project-card">
-        <span class="project-tag">Redes Sociales</span>
+        <span class="project-tag">Redes Sociales / Podcast</span>
         <div class="project-title">Crecimiento de Canal — Dando el Rol</div>
         <div class="project-desc">Estrategia de contenido multiplataforma en YouTube, TikTok, Facebook e Instagram con análisis de rendimiento y mejora continua.</div>
         <div class="project-stack">
-          <span class="stack-tag">YouTube</span><span class="stack-tag">TikTok</span><span class="stack-tag">Shorts</span>
+          <a href="https://www.youtube.com/@DandoUnRolConElRole" target="_blank" class="stack-tag stack-link">YouTube</a>
+          <a href="https://www.tiktok.com/@rolevldz23" target="_blank" class="stack-tag stack-link">TikTok</a>
+          <a href="https://www.facebook.com/DandoUnRolConElRole/" target="_blank" class="stack-tag stack-link">Facebook</a>
         </div>
       </div>
 
