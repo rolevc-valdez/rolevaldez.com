@@ -227,6 +227,56 @@
       scroll-margin-top: 160px;
     }
 
+
+    /* ── SERVICE CARD ANIMATIONS ── */
+    .service-card {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card::before {
+      content: attr(data-icon);
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      filter: blur(2px);
+      z-index: 0;
+    }
+    .service-card:hover::before {
+      opacity: 0.06;
+    }
+    .service-card .service-icon,
+    .service-card .service-body {
+      position: relative;
+      z-index: 1;
+    }
+    .service-card .service-body {
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover .service-body {
+      transform: scale(1.05);
+    }
+    /* Icon animations per card */
+    .service-card:nth-child(1):hover .service-icon { animation: spin 1s linear; }
+    .service-card:nth-child(2):hover .service-icon { animation: pulse-glow 0.6s ease-in-out infinite alternate; }
+    .service-card:nth-child(3):hover .service-icon { animation: shake 0.5s ease; }
+    .service-card:nth-child(4):hover .service-icon { animation: bounce 0.6s ease infinite alternate; }
+    .service-card:nth-child(5):hover .service-icon { animation: flash 0.4s ease infinite alternate; }
+    .service-card:nth-child(6):hover .service-icon { animation: swing 0.6s ease infinite alternate; }
+
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes pulse-glow { from { filter: brightness(1); transform: scale(1); } to { filter: brightness(1.8) drop-shadow(0 0 8px #FF6B35); transform: scale(1.2); } }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-6px); } }
+    @keyframes flash { from { filter: brightness(1); } to { filter: brightness(2) drop-shadow(0 0 10px #FF6B35); } }
+    @keyframes swing { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
+
     /* ── TICKER ── */
     .ticker-wrap {
       overflow: hidden;
@@ -776,40 +826,52 @@
     <p class="section-sub">Soluciones prácticas para negocios locales y empresas que quieren crecer con tecnología.</p>
     <div class="services-grid">
 
-      <div class="service-card">
-        <div class="service-icon">📣</div>
-        <div class="service-title">Comerciales y Publicidad</div>
-        <div class="service-desc">Producción de anuncios digitales, campañas en redes sociales y contenido publicitario que conecta con tu audiencia local y regional.</div>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon">📱</div>
-        <div class="service-title">Manejo y Mejora de Redes Sociales</div>
-        <div class="service-desc">Gestión profesional de tus perfiles en Facebook, Instagram, TikTok y más — con estrategia, contenido consistente y crecimiento real.</div>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon">🌐</div>
-        <div class="service-title">Creación de Sitios Web y Páginas</div>
-        <div class="service-desc">Diseño y desarrollo de sitios web modernos, páginas de negocio y landing pages — rápidos, optimizados para móvil y fáciles de administrar.</div>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon">🛠️</div>
-        <div class="service-title">Soporte Tecnico</div>
-        <div class="service-desc">Soporte y resolución de problemas tecnológicos para negocios locales: internet, equipos, software, procesos y soluciones en general.</div>
-      </div>
-
-      <div class="service-card">
+      <div class="service-card" data-icon="🗂️">
         <div class="service-icon">🗂️</div>
-        <div class="service-title">Consultoría IT</div>
-        <div class="service-desc">Implementación y administración de sistemas como Freshservice y Device42. Inventario limpio, datos confiables, decisiones informadas.</div>
+        <div class="service-body">
+          <div class="service-title">Consultoría IT</div>
+          <div class="service-desc">Implementación y administración de sistemas como Freshservice y Device42. Inventario limpio, datos confiables, decisiones informadas.</div>
+        </div>
       </div>
 
-      <div class="service-card">
+      <div class="service-card" data-icon="⚙️">
         <div class="service-icon">⚙️</div>
-        <div class="service-title">Guia en sistemas y aplicaciones</div>
-        <div class="service-desc">Soporte para tus plataformas de trabajo. Más tiempo para lo que importa.</div>
+        <div class="service-body">
+          <div class="service-title">Guía en sistemas y aplicaciones</div>
+          <div class="service-desc">Soporte para tus plataformas de trabajo. Más tiempo para lo que importa.</div>
+        </div>
+      </div>
+
+      <div class="service-card" data-icon="🛠️">
+        <div class="service-icon">🛠️</div>
+        <div class="service-body">
+          <div class="service-title">Soporte Técnico</div>
+          <div class="service-desc">Soporte y resolución de problemas tecnológicos para negocios locales: internet, equipos, software, procesos y soluciones en general.</div>
+        </div>
+      </div>
+
+      <div class="service-card" data-icon="🌐">
+        <div class="service-icon">🌐</div>
+        <div class="service-body">
+          <div class="service-title">Creación de Sitios Web y Páginas</div>
+          <div class="service-desc">Diseño y desarrollo de sitios web modernos, páginas de negocio y landing pages — rápidos, optimizados para móvil y fáciles de administrar.</div>
+        </div>
+      </div>
+
+      <div class="service-card" data-icon="📣">
+        <div class="service-icon">📣</div>
+        <div class="service-body">
+          <div class="service-title">Comerciales y Publicidad</div>
+          <div class="service-desc">Producción de anuncios digitales, campañas en redes sociales y contenido publicitario que conecta con tu audiencia local y regional.</div>
+        </div>
+      </div>
+
+      <div class="service-card" data-icon="📱">
+        <div class="service-icon">📱</div>
+        <div class="service-body">
+          <div class="service-title">Manejo y Mejora de Redes Sociales</div>
+          <div class="service-desc">Gestión profesional de tus perfiles en Facebook, Instagram, TikTok y más — con estrategia, contenido consistente y crecimiento real.</div>
+        </div>
       </div>
 
     </div>
