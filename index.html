@@ -106,6 +106,22 @@
       padding: 6rem 4rem 4rem;
       position: relative;
       overflow: hidden;
+      background: url('Role.png') center right / cover no-repeat;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        #0a0a0f 0%,
+        #0a0a0f 35%,
+        rgba(10,10,15,0.85) 55%,
+        rgba(10,10,15,0.2) 80%,
+        transparent 100%
+      );
+      z-index: 0;
+      pointer-events: none;
     }
 
     .hero-eyebrow {
@@ -176,25 +192,15 @@
 
     /* ── HERO LAYOUT ── */
     #hero .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 2rem;
-      align-items: center;
-      max-width: 1100px;
-      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 600px;
       width: 100%;
       position: relative;
       z-index: 1;
     }
-    .hero-photo {
-      width: 100%;
-    }
-    .hero-photo img {
-      width: 100%;
-      border-radius: 16px;
-      border: 1px solid #1E2028;
-      display: block;
-    }
+    .hero-photo { display: none; }
 
     /* grid bg — siempre absoluto, fuera del flujo del hero-inner */
     .hero-grid {
@@ -204,9 +210,10 @@
         linear-gradient(var(--border) 1px, transparent 1px),
         linear-gradient(90deg, var(--border) 1px, transparent 1px);
       background-size: 55px 55px;
-      opacity: 0.3;
-      mask-image: radial-gradient(ellipse 70% 60% at 80% 40%, black 0%, transparent 70%);
+      opacity: 0.15;
+      mask-image: radial-gradient(ellipse 50% 80% at 20% 50%, black 0%, transparent 70%);
       pointer-events: none;
+      z-index: 0;
     }
 
     /* ── TICKER ── */
@@ -557,10 +564,10 @@
       }
       .nav-links li:last-child a { border-bottom: none; }
 
-      #hero { padding: 5.5rem 1.2rem 3rem; }
+      #hero { padding: 5.5rem 1.2rem 3rem; background-position: center top; }
       .hero-tagline { font-size: 0.95rem; }
-      #hero .hero-inner { grid-template-columns: 1fr; }
-      .hero-photo { max-width: 280px; margin: 0 auto; }
+      #hero .hero-inner { max-width: 100%; }
+      #hero::before { background: linear-gradient(to bottom, rgba(10,10,15,0.7) 0%, #0a0a0f 60%); }
 
       .section-wrap { padding: 3.5rem 1.2rem; }
       #contacto { padding: 3.5rem 1.2rem; }
@@ -625,6 +632,115 @@
     </div>
   </div>
 </section>
+
+
+<!-- QUIÉN SOY -->
+<section id="quien-soy">
+  <div class="qs-inner">
+    <div class="qs-photo">
+      <img src="role_profile.png" alt="Rogelio Valdez — Role" />
+    </div>
+    <div class="qs-content">
+      <p class="qs-eyebrow">¿Quién soy?</p>
+      <h2 class="qs-title">Rogelio Valdez<br><span>Role.</span></h2>
+      <ul class="qs-list">
+        <li>30 años de experiencia en Tecnología de Información y Sistemas.</li>
+        <li>Consultor en todos los ámbitos relacionados a tecnología aplicada.</li>
+        <li>Experto en ITSM, con enfoque a Freshservice, ServiceNow, ManageEngine y más.</li>
+        <li>Experto en manejo de equipos de IT, ServiceDesk, Soporte a usuarios finales y consultorías.</li>
+        <li>Desarrollo aplicaciones y dashboards en Power BI.</li>
+        <li>Experto en IA's y desarrollo correcto.</li>
+        <li>Creador de soluciones (SOPs, guías, manuales, videos cortos, tutoriales, etc.)</li>
+        <li>Automatizo procesos empresariales.</li>
+        <li>Diseño Sitios y páginas web.</li>
+        <li>Proporciono guía y consultoría para manejo de redes sociales.</li>
+        <li>Conductor principal del podcast <strong>Dando un Rol con el Role</strong>.</li>
+        <li>Creador de comerciales y publicidad.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+#quien-soy {
+  padding: 6rem 4rem;
+  background: #0a0a0f;
+  position: relative;
+}
+#quien-soy::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
+}
+.qs-inner {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.qs-photo {
+  position: relative;
+}
+.qs-photo img {
+  width: 100%;
+  border-radius: 16px;
+  display: block;
+  filter: grayscale(20%) contrast(1.05);
+  box-shadow: 0 0 60px rgba(255,107,53,0.15);
+}
+.qs-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+.qs-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 2rem;
+}
+.qs-title span {
+  color: var(--accent);
+}
+.qs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.qs-list li {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.5;
+  padding-left: 1.2rem;
+  position: relative;
+}
+.qs-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.75rem;
+  top: 0.15rem;
+}
+@media (max-width: 768px) {
+  #quien-soy { padding: 4rem 1.2rem; }
+  .qs-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .qs-photo { max-width: 260px; margin: 0 auto; }
+}
+</style>
 
 <!-- TICKER -->
 <div class="ticker-wrap" aria-hidden="true">
