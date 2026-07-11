@@ -113,8 +113,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to right, #0a0a0f 0%, #0a0a0f 20%, rgba(10,10,15,0.5) 45%, rgba(10,10,15,0.05) 85%, #0a0a0f 100%),
-        linear-gradient(to bottom, #0a0a0f 0%, transparent 8%, transparent 88%, #0a0a0f 100%);
+        linear-gradient(to right, #0a0a0f 0%, #0a0a0f 20%, rgba(10,10,15,0.5) 45%, rgba(10,10,15,0.05) 80%, #0a0a0f 100%),
+        linear-gradient(to bottom, #0a0a0f 0%, rgba(10,10,15,0.85) 6%, transparent 18%, transparent 82%, #0a0a0f 100%);
       z-index: 0;
       pointer-events: none;
     }
@@ -220,6 +220,11 @@
       z-index: 0;
       pointer-events: none;
       opacity: 0.18;
+    }
+
+    /* ── SCROLL OFFSET FIX ── */
+    section {
+      scroll-margin-top: 80px;
     }
 
     /* ── TICKER ── */
