@@ -240,5 +240,50 @@
   renderEpisodes();
 </script>
 
+
+<!-- Botón volver al inicio -->
+<a href="#" id="back-to-top" aria-label="Volver al inicio">
+  <img src="logorvblanco.png" alt="RoleValdez.com" />
+  <span>volver al inicio</span>
+</a>
+<style>
+#back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+#back-to-top.visible { display: flex; }
+#back-to-top img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7));
+}
+#back-to-top:hover { transform: scale(1.1); }
+#back-to-top span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+}
+</style>
+<script>
+(function(){
+  var btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 300){ btn.classList.add('visible'); }
+    else { btn.classList.remove('visible'); }
+  });
+})();
+</script>
 </body>
 </html>
