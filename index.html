@@ -1141,13 +1141,12 @@
                 var videoId = s.resourceId.videoId;
                 var title = s.title;
                 var desc = s.description ? s.description.substring(0, 80) + '...' : '';
-                var num = String(i + 1).padStart(2, '0');
                 var li = document.createElement('li');
                 li.className = 'episode-item';
                 li.style.cursor = 'pointer';
                 li.onclick = function(){ window.open('https://www.youtube.com/watch?v=' + videoId, '_blank'); };
                 li.innerHTML =
-                  '<span class="ep-num">EP·' + num + '</span>' +
+                  '<span class="ep-num">▶</span>' +
                   '<div>' +
                     '<div class="ep-title" style="transition:color 0.2s;">' + title + '</div>' +
                     '<div class="ep-desc">' + desc + '</div>' +
