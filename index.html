@@ -262,13 +262,8 @@
     .service-card:hover .service-body {
       transform: scale(1.05);
     }
-    /* Icon animations per card */
-    .service-card:nth-child(1):hover .service-icon { animation: spin 1s linear; }
-    .service-card:nth-child(2):hover .service-icon { animation: pulse-glow 0.6s ease-in-out infinite alternate; }
-    .service-card:nth-child(3):hover .service-icon { animation: shake 0.5s ease; }
-    .service-card:nth-child(4):hover .service-icon { animation: bounce 0.6s ease infinite alternate; }
-    .service-card:nth-child(5):hover .service-icon { animation: flash 0.4s ease infinite alternate; }
-    .service-card:nth-child(6):hover .service-icon { animation: swing 0.6s ease infinite alternate; }
+    /* Icon animations - todas con bounce */
+    .service-card:hover .service-icon { animation: bounce 0.6s ease infinite alternate; }
 
     @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     @keyframes pulse-glow { from { filter: brightness(1); transform: scale(1); } to { filter: brightness(1.8) drop-shadow(0 0 8px #FF6B35); transform: scale(1.2); } }
