@@ -285,20 +285,46 @@
 
 
     /* ── PROJECT CARD THUMBNAILS ── */
-    .project-thumb {
+    .project-thumb-wrap {
+      position: relative;
       width: 100%;
       height: 160px;
-      object-fit: cover;
       border-radius: 8px;
+      overflow: hidden;
       margin-bottom: 1rem;
+    }
+    .project-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      transition: transform 0.3s ease, filter 0.3s ease;
-      filter: brightness(0.9);
+      transition: transform 0.4s ease;
     }
-    .project-card:hover .project-thumb {
-      transform: scale(1.03);
-      filter: brightness(1.05);
+    .project-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 107, 53, 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+      border-radius: 8px;
     }
+    .project-thumb-overlay span {
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      font-family: 'Space Grotesk', sans-serif;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .project-card:hover .project-thumb { transform: scale(1.06); }
+    .project-card:hover .project-thumb-overlay { background: rgba(255, 107, 53, 0.55); }
+    .project-card:hover .project-thumb-overlay span { opacity: 1; transform: translateY(0); }
 
     /* ── TICKER ── */
     .ticker-wrap {
@@ -912,7 +938,10 @@
     <div class="portfolio-grid">
 
       <div class="project-card">
-        <img src="dandounrolconelrole.jpg" alt="Dando un Rol con el Role" class="project-thumb" />
+        <div class="project-thumb-wrap">
+          <img src="dandounrolconelrole.jpg" alt="Dando un Rol con el Role" class="project-thumb" />
+          <div class="project-thumb-overlay"><span>Ver proyecto →</span></div>
+        </div>
         <span class="project-tag">Redes Sociales / Podcast</span>
         <div class="project-title">Crecimiento de Canal — Dando un Rol con el Role</div>
         <div class="project-desc">Estrategia de contenido multiplataforma en YouTube, TikTok, Facebook e Instagram con análisis de rendimiento y mejora continua.</div>
@@ -925,7 +954,10 @@
 
 
       <div class="project-card" style="cursor:pointer;" onclick="window.open('https://desiertocreativo.com/','_blank')">
-        <img src="desiertocreativo.jpg" alt="Desierto Creativo" class="project-thumb" />
+        <div class="project-thumb-wrap">
+          <img src="desiertocreativo.jpg" alt="Desierto Creativo" class="project-thumb" />
+          <div class="project-thumb-overlay"><span>Ver proyecto →</span></div>
+        </div>
         <span class="project-tag">Sitio Web</span>
         <div class="project-title">Sitio Web Dinámico — Desierto Creativo</div>
         <div class="project-desc">Sitio de producción audiovisual, creando historias con gran impacto.</div>
@@ -935,7 +967,10 @@
       </div>
 
       <div class="project-card" style="cursor:pointer;" onclick="window.open('https://www.roletrabajo.com/','_blank')">
-        <img src="roletrabajo.jpg" alt="Portal de Empleo RoleTrabajo" class="project-thumb" />
+        <div class="project-thumb-wrap">
+          <img src="roletrabajo.jpg" alt="Portal de Empleo RoleTrabajo" class="project-thumb" />
+          <div class="project-thumb-overlay"><span>Ver proyecto →</span></div>
+        </div>
         <span class="project-tag">Sitio Web</span>
         <div class="project-title">Portal de Empleo Local — APSON</div>
         <div class="project-desc">Bolsa de trabajo local en WordPress con WP Job Manager para conectar empleadores y candidatos en la región fronteriza.</div>
