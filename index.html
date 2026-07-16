@@ -714,6 +714,7 @@
     <li><a href="#quien-soy"  onclick="closeMenu()">Quién Soy</a></li>
     <li><a href="#servicios"  onclick="closeMenu()">Servicios</a></li>
     <li><a href="#portafolio" onclick="closeMenu()">Portafolio</a></li>
+    <li><a href="#super-facil" onclick="closeMenu()">Super Fácil</a></li>
     <li><a href="#podcast"   onclick="closeMenu()">Podcast</a></li>
     <li><a href="#blog"      onclick="closeMenu()">Blog</a></li>
     <li><a href="#contacto"  onclick="closeMenu()">Contacto</a></li>
@@ -1002,6 +1003,98 @@
 </section>
 
 <hr class="divider" />
+
+
+<!-- SUPER FÁCIL -->
+<section id="super-facil">
+  <div class="sf-bg" aria-hidden="true"></div>
+  <div class="sf-overlay" aria-hidden="true"></div>
+  <div class="sf-inner">
+    <p class="sf-eyebrow">Próximamente</p>
+    <h2 class="sf-title">Serie de libros<br><span>Super Fácil</span></h2>
+    <p class="sf-subtitle">por <strong>Role Valdez</strong></p>
+    <div class="sf-badge">🚀 Muy pronto disponible</div>
+  </div>
+</section>
+
+<style>
+#super-facil {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+}
+.sf-bg {
+  position: absolute;
+  inset: 0;
+  background: url('libros_fondo.jpg') center center / cover no-repeat;
+  z-index: 0;
+}
+.sf-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, #0a0a0f 0%, rgba(10,10,15,0.5) 20%, rgba(10,10,15,0.5) 80%, #0a0a0f 100%),
+    linear-gradient(to right, #0a0a0f 0%, transparent 20%, transparent 80%, #0a0a0f 100%);
+  z-index: 1;
+}
+.sf-inner {
+  position: relative;
+  z-index: 2;
+  padding: 4rem 2rem;
+  max-width: 700px;
+}
+.sf-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.sf-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+.sf-title span {
+  color: var(--accent);
+}
+.sf-subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+.sf-subtitle strong {
+  color: var(--text);
+}
+.sf-badge {
+  display: inline-block;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.5rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,53,0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(255,107,53,0); }
+}
+@media (max-width: 768px) {
+  #super-facil { min-height: 50vh; }
+  .sf-inner { padding: 3rem 1.2rem; }
+}
+</style>
 
 <!-- PODCAST -->
 <section id="podcast">
