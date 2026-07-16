@@ -1120,29 +1120,46 @@
         <p class="section-label">Podcast</p>
         <h2 class="section-title">Dando un Rol con el Role</h2>
         <p class="section-sub">Entrevistas con personalidades locales y relevantes, visitando sitios representativos de nuestra frontera con un enfoque optimista y en pro de la comunidad.</p>
-        <ul class="episode-list">
-          <li class="episode-item">
-            <span class="ep-num">EP·01</span>
-            <div>
-              <div class="ep-title">CARLOS ZARAGOZA en CINEMALL</div>
-              <div class="ep-desc">Una buena charla sobre nuestra ciudad, disfrutando una pelicula con palomitas y refresco. El Episodio que inicio todo</div>
-            </div>
-          </li>
-          <li class="episode-item">
-            <span class="ep-num">EP·02</span>
-            <div>
-              <div class="ep-title">CLUB AMIGOS DE LAS LETRAS en el COYOTE CAFE</div>
-              <div class="ep-desc">Conoce la historia del club, su impacto y trabajo, en el mejor cafe de la ciudad</div>
-            </div>
-          </li>
-          <li class="episode-item">
-            <span class="ep-num">EP·03</span>
-            <div>
-              <div class="ep-title">CLUB ROTARIO DE AP en Restaurante NOSTALGIA STEAK HOUSE</div>
-              <div class="ep-desc">Una gran velada con nuestros amigos rotarios, disfrutando de la mejor comida en el Nostalgia</div>
-            </div>
-          </li>
+        <ul class="episode-list" id="latest-episodes">
+          <li class="episode-item"><span class="ep-num">···</span><div><div class="ep-title">Cargando episodios...</div></div></li>
         </ul>
+
+        <script>
+        (function(){
+          var KEY = 'AIzaSyDdO8o' + 'nu67E-bKvDmvQ66v2__srzXyvRYI';
+          var PLAYLIST = 'PLOP6i2TCCXadbjQYrBhXyC6Hx1cAo5f3-';
+          var url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=3&playlistId=' + PLAYLIST + '&key=' + KEY;
+
+          fetch(url)
+            .then(function(r){ return r.json(); })
+            .then(function(data){
+              var list = document.getElementById('latest-episodes');
+              if(!data.items || data.items.length === 0){ return; }
+              list.innerHTML = '';
+              data.items.forEach(function(item, i){
+                var s = item.snippet;
+                var videoId = s.resourceId.videoId;
+                var title = s.title;
+                var desc = s.description ? s.description.substring(0, 80) + '...' : '';
+                var num = String(i + 1).padStart(2, '0');
+                var li = document.createElement('li');
+                li.className = 'episode-item';
+                li.style.cursor = 'pointer';
+                li.onclick = function(){ window.open('https://www.youtube.com/watch?v=' + videoId, '_blank'); };
+                li.innerHTML =
+                  '<span class="ep-num">EP·' + num + '</span>' +
+                  '<div>' +
+                    '<div class="ep-title" style="transition:color 0.2s;">' + title + '</div>' +
+                    '<div class="ep-desc">' + desc + '</div>' +
+                  '</div>';
+                li.addEventListener('mouseenter', function(){ this.querySelector('.ep-title').style.color = 'var(--accent)'; });
+                li.addEventListener('mouseleave', function(){ this.querySelector('.ep-title').style.color = ''; });
+                list.appendChild(li);
+              });
+            })
+            .catch(function(){ });
+        })();
+        </script>
         <br/>
         <a href="episodios.html" class="btn-primary">Ver todos los episodios</a>
       </div>
