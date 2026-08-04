@@ -1071,21 +1071,21 @@
   <div class="sf-books">
     <a href="https://www.etsy.com/mx/listing/4539101191/chatgpt-super-facil-o-aprende" target="_blank" class="sf-book-card">
       <div class="sf-book-img-wrap">
-        <img src="sf_chatgpt.jpg" alt="ChatGPT Super Fácil" />
+        <img src="sf_chatgpt.png" alt="ChatGPT Super Fácil" />
         <div class="sf-book-overlay"><span>Comprar →</span></div>
       </div>
       <p class="sf-book-title">ChatGPT Super Fácil</p>
     </a>
     <a href="https://www.etsy.com/mx/listing/4549359383/inteligencia-artificial-super-facil" target="_blank" class="sf-book-card">
       <div class="sf-book-img-wrap">
-        <img src="sf_ia.jpg" alt="Inteligencia Artificial Super Fácil" />
+        <img src="sf_ia.png" alt="Inteligencia Artificial Super Fácil" />
         <div class="sf-book-overlay"><span>Comprar →</span></div>
       </div>
       <p class="sf-book-title">Inteligencia Artificial Super Fácil</p>
     </a>
     <a href="https://www.etsy.com/mx/listing/4549381334/excel-super-facil" target="_blank" class="sf-book-card">
       <div class="sf-book-img-wrap">
-        <img src="sf_excel.jpg" alt="Excel Super Fácil" />
+        <img src="sf_excel.png" alt="Excel Super Fácil" />
         <div class="sf-book-overlay"><span>Comprar →</span></div>
       </div>
       <p class="sf-book-title">Excel Super Fácil</p>
@@ -1126,13 +1126,20 @@
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
   width: 100%;
+  aspect-ratio: 400 / 520;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
 }
 .sf-book-img-wrap img {
   width: 100%;
+  height: 100%;
+  object-fit: contain;
   display: block;
   transition: transform 0.4s;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
 }
 .sf-book-card:hover .sf-book-img-wrap img { transform: scale(1.04); }
 .sf-book-overlay {
