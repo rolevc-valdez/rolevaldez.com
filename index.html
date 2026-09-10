@@ -1178,6 +1178,7 @@
               var list = document.getElementById('latest-episodes');
               if(!data.items || data.items.length === 0){ return; }
               list.innerHTML = '';
+              data.items = data.items.filter(function(item){ var t = item.snippet.title; return t !== 'Deleted video' && t !== 'Private video'; });
               data.items.forEach(function(item, i){
                 var s = item.snippet;
                 var videoId = s.resourceId.videoId;
