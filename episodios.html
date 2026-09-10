@@ -203,6 +203,7 @@
       const grid = document.createElement('div');
       grid.className = 'episodes-grid';
 
+      videos = videos.filter(item => item.snippet.title !== 'Deleted video' && item.snippet.title !== 'Private video');
       videos.forEach((item, index) => {
         const s       = item.snippet;
         const videoId = s.resourceId.videoId;
