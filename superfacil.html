@@ -112,6 +112,22 @@
       color: var(--muted);
     }
     .sf-page-subtitle strong { color: var(--text); }
+    .sf-free-btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .sf-free-btn:hover { opacity: 0.85; transform: scale(1.03); }
     .sf-etsy-btn {
       display: inline-block;
       margin-top: 1.5rem;
@@ -146,7 +162,7 @@
       transition: transform 0.3s;
       width: 240px;
     }
-    .sf-book-card:hover { transform: translateY(-8px); }
+    .sf-book-card:hover { transform: translateY(-6px); }
     .sf-book-img-wrap {
       position: relative;
       border-radius: 12px;
@@ -240,73 +256,67 @@
       <p class="sf-page-eyebrow">Colección de eBooks</p>
       <h1 class="sf-page-title">Serie de libros<br><span>Super Fácil</span></h1>
       <p class="sf-page-subtitle">por <strong>Role Valdez</strong></p>
-      <a href="https://www.etsy.com/mx/shop/SuperFacilRole" target="_blank" class="sf-etsy-btn">Ver tienda en Etsy →</a>
+      <button class="sf-free-btn">Si deseas una copia gratuita, haz click aquí</button>
     </div>
 
     <div class="sf-books">
-<a href="https://www.etsy.com/mx/listing/4539101191/chatgpt-super-facil-o-aprende" target="_blank" class="sf-book-card">
+<div class="sf-book-card">
       <div class="sf-book-img-wrap">
         <img src="sf_chatgpt.png" alt="ChatGPT Super Fácil" />
         <div class="sf-book-overlay"><span>Comprar →</span></div>
       </div>
       <p class="sf-book-title">ChatGPT Super Fácil</p>
-    </a>
-    <a href="https://www.etsy.com/mx/listing/4549359383/inteligencia-artificial-super-facil" target="_blank" class="sf-book-card">
+    </div>
+    <div class="sf-book-card">
       <div class="sf-book-img-wrap">
         <img src="sf_ia.png" alt="Inteligencia Artificial Super Fácil" />
         <div class="sf-book-overlay"><span>Comprar →</span></div>
       </div>
       <p class="sf-book-title">Inteligencia Artificial Super Fácil</p>
-    </a>
-    <a href="https://www.etsy.com/mx/listing/4549381334/excel-super-facil" target="_blank" class="sf-book-card">
+    </div>
+    <div class="sf-book-card">
       <div class="sf-book-img-wrap">
         <img src="sf_excel.png" alt="Excel Super Fácil" />
         <div class="sf-book-overlay"><span>Comprar →</span></div>
       </div>
       <p class="sf-book-title">Excel Super Fácil</p>
-    </a>
-    <a href="https://www.etsy.com/mx/listing/4549846605/facebook-seguro-super-facil?ref=shop_home_active_4&dd=1&logging_key=a8826b9446890aad3337698ae1b1de01410df733%3A4549846605" target="_blank" class="sf-book-card">
+    </div>
+    <div class="sf-book-card">
       <div class="sf-book-img-wrap">
         <img src="sf_facebook_seguro_super_facil.jpg" alt="Facebook Seguro Super Facil" />
-        <div class="sf-book-overlay"><span>Comprar &rarr;</span></div>
       </div>
       <p class="sf-book-title">Facebook Seguro Super Facil</p>
-    </a>
-    <a href="https://www.etsy.com/mx/listing/4550690728/whatsapp-super-facil?ref=shop_home_feat_2&dd=1&logging_key=32f065613751705988640950d2944f34c547d5e0%3A4550690728" target="_blank" class="sf-book-card">
+    </div>
+    <div class="sf-book-card">
       <div class="sf-book-img-wrap">
         <img src="sf_whatsapp_super_facil.jpg" alt="Whatsapp Super Facil" />
-        <div class="sf-book-overlay"><span>Comprar &rarr;</span></div>
       </div>
       <p class="sf-book-title">Whatsapp Super Facil</p>
-    </a>
-    <a href="https://www.etsy.com/mx/listing/4551663904/instagram-super-facil?ref=shop_home_feat_2&dd=1&logging_key=e6cb1f29fcbf6aa23d2034b44b0c3ba36c8d1da0%3A4551663904" target="_blank" class="sf-book-card">
+    </div>
+    <div class="sf-book-card">
       <div class="sf-book-img-wrap">
         <img src="sf_instagram_super_facil.jpg" alt="Instagram Super Facil" />
-        <div class="sf-book-overlay"><span>Comprar &rarr;</span></div>
       </div>
       <p class="sf-book-title">Instagram Super Facil</p>
-    </a>
-    <a href="https://www.etsy.com/mx/listing/4551775240/google-gemini-super-facil?ref=shop_home_active_2&dd=1&logging_key=f740f6e6b4eff92f4cad5448836393a87b668766%3A4551775240" target="_blank" class="sf-book-card">
+    </div>
+    <div class="sf-book-card">
       <div class="sf-book-img-wrap">
         <img src="sf_google_gemini_super_facil.jpg" alt="Google Gemini Super Facil" />
-        <div class="sf-book-overlay"><span>Comprar &rarr;</span></div>
       </div>
       <p class="sf-book-title">Google Gemini Super Facil</p>
-    </a>
-    <a href="https://www.etsy.com/mx/listing/4551786371/ms-copilot-super-facil?ref=shop_home_active_1&dd=1&logging_key=397eb8239ac51b3e151612503118950ffaf85787%3A4551786371" target="_blank" class="sf-book-card">
+    </div>
+    <div class="sf-book-card">
       <div class="sf-book-img-wrap">
         <img src="sf_microsof_copilot_super_facil.jpg" alt="Microsof Copilot Super Facil" />
-        <div class="sf-book-overlay"><span>Comprar &rarr;</span></div>
       </div>
       <p class="sf-book-title">Microsof Copilot Super Facil</p>
-    </a>
-    <a href="https://www.etsy.com/mx/listing/4552300315/copilot-microsoft-office-super-facil?ref=shop_home_feat_3&dd=1&logging_key=d520b663e1e91c4ad87f42b35ad84533ef3af684%3A4552300315" target="_blank" class="sf-book-card">
+    </div>
+    <div class="sf-book-card">
       <div class="sf-book-img-wrap">
         <img src="sf_copilot_-_office_super_facil.jpg" alt="Copilot - OFFICE Super Facil" />
-        <div class="sf-book-overlay"><span>Comprar &rarr;</span></div>
       </div>
       <p class="sf-book-title">Copilot - OFFICE Super Facil</p>
-    </a>
+    </div>
     </div>
   </div>
 
