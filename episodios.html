@@ -207,7 +207,8 @@
         const s       = item.snippet;
         const videoId = s.resourceId.videoId;
         const thumb   = s.thumbnails?.maxres?.url || s.thumbnails?.high?.url || s.thumbnails?.medium?.url || '';
-        const epNum   = String(videos.length - index).padStart(2, '0');
+        const epMatch = s.title.match(/[Ee][Pp][\.\s·\-]*([0-9]+)/);
+        const epNum   = epMatch ? String(epMatch[1]).padStart(2, '0') : String(videos.length - index).padStart(2, '0');
 
         const card = document.createElement('a');
         card.className = 'ep-card';
