@@ -207,8 +207,7 @@
         const s       = item.snippet;
         const videoId = s.resourceId.videoId;
         const thumb   = s.thumbnails?.maxres?.url || s.thumbnails?.high?.url || s.thumbnails?.medium?.url || '';
-        const epMatch = s.title.match(/[Ee][Pp][\.\s·\-]*([0-9]+)/);
-        const epNum   = epMatch ? String(epMatch[1]).padStart(2, '0') : String(videos.length - index).padStart(2, '0');
+
 
         const card = document.createElement('a');
         card.className = 'ep-card';
@@ -222,7 +221,7 @@
             : `<div class="ep-thumb-placeholder">🎙️</div>`
           }
           <div class="ep-body">
-            <div class="ep-number">EP · ${epNum}</div>
+            <div class="ep-number"></div>
             <div class="ep-title">${s.title}</div>
             <div class="ep-date">${formatDate(s.publishedAt)}</div>
           </div>
