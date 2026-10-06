@@ -213,3 +213,17 @@ test('si la base falla al guardar responde 500 y ok: false', async () => {
   assert.equal(res.status, 500);
   assert.equal(body.ok, false);
 });
+
+test('el middleware oculta tests/, migrations/ y functions/ pero deja pasar /api', async () => {
+  const { onRequest } = await import('../functions/_middleware.js');
+  const siguiente = async () => new Response('ok', { status: 200 });
+  const estado = async ruta =>
+    (await onRequest({ request: new Request(ORIGEN + ruta), next: siguiente })).status;
+  for (const ruta of ['/tests/patrocinios.test.mjs', '/migrations/0001_solicitudes_patrocinio.sql',
+    '/functions/api/patrocinios.js', '/TESTS/x', '/%74ests/x', '//tests/x', '/tests']) {
+    assert.equal(await estado(ruta), 404, ruta);
+  }
+  for (const ruta of ['/api/patrocinios', '/patrocinios', '/testsx']) {
+    assert.equal(await estado(ruta), 200, ruta);
+  }
+});
