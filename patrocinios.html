@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3WPQ0DQG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q3WPQ0DQG9');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patrocina — Dando un Rol con el Role</title>
+  <meta name="description" content="Dale presencia a tu negocio y acompáñanos a compartir las historias de nuestra comunidad." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0D0D0D; --surface: #111318; --border: #1E2028;
+      --accent: #FF6B35; --accent2: #FF8F5E; --text: #F0F0F0; --muted: #888;
+      --faint: #333; --error: #FF7A6E; --ok: #2a9d5c;
+    }
+    [hidden] { display: none !important; }
+    html { scroll-padding-top: 220px; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.4rem 2rem;
+      background: rgba(13,13,13,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav a img { height: auto; width: auto; }
+    .nav-back {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    main { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    .page-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.2rem; }
+    .page-header img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); font-weight: 600; margin-bottom: 0.3rem;
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+    }
+    .intro { color: var(--muted); font-size: 1rem; line-height: 1.75; font-weight: 300; margin-bottom: 2rem; }
+
+    .sponsor-form { display: grid; gap: 1.1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); font-weight: 500;
+    }
+    .form-label .opt { text-transform: none; letter-spacing: 0; color: #666; font-weight: 400; }
+    .req { color: var(--accent); }
+    .form-hint { font-size: 0.78rem; color: var(--muted); }
+    .form-input, .form-textarea {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+      padding: 0.8rem 0.9rem; min-height: 48px;
+      color: var(--text); font-family: 'Inter', sans-serif;
+      font-size: 1rem; /* 16px evita el zoom automático en iOS */
+      transition: border-color 0.2s; width: 100%;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: #555; }
+    .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,107,53,0.25); }
+    .form-textarea { min-height: 120px; resize: vertical; }
+    [aria-invalid="true"] { border-color: var(--error) !important; }
+    .field-error { font-size: 0.8rem; color: var(--error); }
+    .field-error:empty { display: none; }
+
+    .consent {
+      display: flex; gap: 0.8rem; align-items: flex-start;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+      padding: 0.9rem; cursor: pointer;
+    }
+    .consent input {
+      width: 22px; height: 22px; flex-shrink: 0; margin-top: 0.1rem;
+      accent-color: var(--accent); cursor: pointer;
+    }
+    .consent span { font-size: 0.9rem; line-height: 1.5; }
+    .consent:has(input:focus-visible) { border-color: var(--accent); }
+
+    /* Campo trampa para bots: fuera de pantalla, no visible ni enfocable */
+    .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+    .form-submit {
+      background: var(--accent); color: #fff; border: none;
+      padding: 0.9rem 2rem; min-height: 50px; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s; width: 100%;
+    }
+    .form-submit:hover:not(:disabled) { background: var(--accent2); }
+    .form-submit:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
+    .form-submit:disabled { opacity: 0.7; cursor: progress; }
+
+    .form-alert {
+      border: 1px solid var(--error); background: rgba(255,122,110,0.08);
+      color: var(--text); border-radius: 6px; padding: 0.9rem 1rem; font-size: 0.9rem;
+    }
+    .form-alert:empty { display: none; }
+
+    .success {
+      border: 1px solid var(--ok); background: rgba(42,157,92,0.1);
+      border-radius: 10px; padding: 1.6rem 1.4rem; text-align: center;
+    }
+    .success h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .success p { color: var(--text); }
+    .success a { display: inline-block; margin-top: 1.2rem; color: var(--accent); }
+    .success:focus { outline: none; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 1.5rem 2rem;
+      text-align: center; color: var(--muted); font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      nav { padding: 0.4rem 1rem; }
+      nav a img { height: 90px !important; margin: -8px 0 !important; }
+      html { scroll-padding-top: 130px; }
+      main { padding: 2rem 1rem 4rem; }
+      .page-header { gap: 1rem; }
+      .page-header img { width: 60px; height: 60px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/"><img src="logorv.png" alt="RoleValdez.com" style="height:180px; width:auto; margin: -20px 0;" /></a>
+  <a href="/#podcast" class="nav-back">← Volver</a>
+</nav>
+
+<main>
+  <div class="page-header">
+    <img src="logoPodcastYoutube.png" alt="" />
+    <div>
+      <p class="section-label">Patrocinios</p>
+      <h1>Patrocina Dando un Rol con el Role</h1>
+    </div>
+  </div>
+  <p class="intro">Dale presencia a tu negocio y acompáñanos a compartir las historias de nuestra comunidad. Déjanos tus datos para conocer las opciones de patrocinio económico.</p>
+
+  <form class="sponsor-form" id="sponsorForm" novalidate>
+    <p class="form-hint">Los campos marcados con <span class="req" aria-hidden="true">*</span> son obligatorios.</p>
+    <div class="form-alert" id="formAlert" role="alert" tabindex="-1"></div>
+
+    <div class="form-group">
+      <label class="form-label" for="negocio">Nombre del negocio <span class="req" aria-hidden="true">*</span></label>
+      <input class="form-input" type="text" id="negocio" name="negocio" required maxlength="120" autocomplete="organization" aria-describedby="negocio-error" />
+      <span class="field-error" id="negocio-error"></span>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="contacto">Nombre de la persona de contacto <span class="req" aria-hidden="true">*</span></label>
+      <input class="form-input" type="text" id="contacto" name="contacto" required maxlength="120" autocomplete="name" aria-describedby="contacto-error" />
+      <span class="field-error" id="contacto-error"></span>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="whatsapp">WhatsApp <span class="req" aria-hidden="true">*</span></label>
+        <input class="form-input" type="tel" id="whatsapp" name="whatsapp" required maxlength="25" inputmode="tel" autocomplete="tel" placeholder="+52 631 123 4567" aria-describedby="whatsapp-hint whatsapp-error" />
+        <span class="form-hint" id="whatsapp-hint">Incluye el código de país (+52 México, +1 EE. UU.).</span>
+        <span class="field-error" id="whatsapp-error"></span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Correo electrónico <span class="opt">(opcional)</span></label>
+        <input class="form-input" type="email" id="email" name="email" maxlength="160" autocomplete="email" inputmode="email" aria-describedby="email-error" />
+        <span class="field-error" id="email-error"></span>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="ciudad">Ciudad <span class="req" aria-hidden="true">*</span></label>
+        <input class="form-input" type="text" id="ciudad" name="ciudad" required maxlength="80" autocomplete="address-level2" aria-describedby="ciudad-error" />
+        <span class="field-error" id="ciudad-error"></span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="web_redes">Sitio web o redes <span class="opt">(opcional)</span></label>
+        <input class="form-input" type="text" id="web_redes" name="web_redes" maxlength="200" autocomplete="url" placeholder="sitio.com o @tunegocio" aria-describedby="web_redes-error" />
+        <span class="field-error" id="web_redes-error"></span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="mensaje">Mensaje o comentarios <span class="opt">(opcional)</span></label>
+      <textarea class="form-textarea" id="mensaje" name="mensaje" maxlength="2000" aria-describedby="mensaje-error"></textarea>
+      <span class="field-error" id="mensaje-error"></span>
+    </div>
+
+    <div class="hp" aria-hidden="true">
+      <label for="sitio_alterno">No llenes este campo</label>
+      <input type="text" id="sitio_alterno" name="sitio_alterno" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="form-group">
+      <label class="consent" for="consentimiento">
+        <input type="checkbox" id="consentimiento" name="consentimiento" required aria-describedby="consentimiento-error" />
+        <span>Autorizo que me contacten para recibir información sobre el patrocinio del podcast Dando un Rol con el Role. <span class="req" aria-hidden="true">*</span></span>
+      </label>
+      <span class="field-error" id="consentimiento-error"></span>
+    </div>
+
+    <button type="submit" class="form-submit" id="submitBtn">Solicitar información</button>
+  </form>
+
+  <div class="success" id="successMsg" role="status" tabindex="-1" hidden>
+    <h2>¡Solicitud recibida!</h2>
+    <p>Gracias por tu interés. Recibimos tus datos y te contactaremos para compartir las opciones de patrocinio.</p>
+    <a href="/episodios">Ver episodios del podcast →</a>
+  </div>
+</main>
+
+<footer>© 2026 · RoleValdez.com · Agua Prieta, Sonora</footer>
+
+<script>
+(function(){
+  var form    = document.getElementById('sponsorForm');
+  var btn     = document.getElementById('submitBtn');
+  var alertEl = document.getElementById('formAlert');
+  var success = document.getElementById('successMsg');
+  var inicio  = Date.now();
+  var enviando = false;
+
+  function nuevoId() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+      var r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+  // Un folio por llenado: si se reintenta tras un error, el servidor no duplica la solicitud.
+  var folio = nuevoId();
+
+  var CAMPOS = ['negocio','contacto','whatsapp','email','ciudad','web_redes','mensaje','consentimiento'];
+
+  function marcar(campo, mensaje) {
+    var input = document.getElementById(campo);
+    var err   = document.getElementById(campo + '-error');
+    if (mensaje) { input.setAttribute('aria-invalid', 'true'); err.textContent = mensaje; }
+    else { input.removeAttribute('aria-invalid'); err.textContent = ''; }
+  }
+
+  function validarLocal() {
+    var errores = {};
+    var v = function(id){ return document.getElementById(id).value.trim(); };
+    if (!v('negocio'))  errores.negocio  = 'Escribe el nombre del negocio.';
+    if (!v('contacto')) errores.contacto = 'Escribe el nombre de la persona de contacto.';
+    if (!v('ciudad'))   errores.ciudad   = 'Escribe la ciudad.';
+    var tel = v('whatsapp').replace(/[\s().-]/g, '');
+    if (!tel) errores.whatsapp = 'Escribe tu número de WhatsApp con código de país.';
+    else if (!/^\+[1-9]\d{7,14}$/.test(tel)) errores.whatsapp = 'Incluye el código de país, por ejemplo +52 631 123 4567.';
+    var mail = v('email');
+    if (mail && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) errores.email = 'Revisa el correo electrónico.';
+    if (!document.getElementById('consentimiento').checked) errores.consentimiento = 'Necesitamos tu autorización para contactarte.';
+    return errores;
+  }
+
+  function mostrarErrores(errores) {
+    var primero = null;
+    CAMPOS.forEach(function(c){
+      marcar(c, errores[c] || '');
+      if (errores[c] && !primero) primero = c;
+    });
+    if (primero) document.getElementById(primero).focus();
+  }
+
+  CAMPOS.forEach(function(c){
+    var el = document.getElementById(c);
+    el.addEventListener(c === 'consentimiento' ? 'change' : 'input', function(){
+      if (el.getAttribute('aria-invalid')) marcar(c, '');
+    });
+  });
+
+  function ocupado(si) {
+    enviando = si;
+    btn.disabled = si;
+    btn.setAttribute('aria-busy', si ? 'true' : 'false');
+    btn.textContent = si ? 'Enviando…' : 'Solicitar información';
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (enviando) return;
+    alertEl.textContent = '';
+
+    var errores = validarLocal();
+    if (Object.keys(errores).length) { mostrarErrores(errores); return; }
+    mostrarErrores({});
+
+    var datos = { id: folio, tiempo_ms: Date.now() - inicio };
+    CAMPOS.forEach(function(c){
+      var el = document.getElementById(c);
+      datos[c] = el.type === 'checkbox' ? el.checked : el.value;
+    });
+    datos.sitio_alterno = document.getElementById('sitio_alterno').value;
+
+    ocupado(true);
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var limite = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 20000);
+
+    fetch('/api/patrocinios', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(datos),
+      signal: ctrl ? ctrl.signal : undefined
+    })
+      .then(function(res){
+        return res.json().catch(function(){ return {}; }).then(function(body){ return { res: res, body: body }; });
+      })
+      .then(function(r){
+        clearTimeout(limite);
+        if (r.res.ok && r.body.ok) {
+          form.hidden = true;
+          success.hidden = false;
+          success.focus();
+          if (typeof gtag === 'function') gtag('event', 'solicitud_patrocinio');
+          return;
+        }
+        ocupado(false);
+        if (r.body.errores) mostrarErrores(r.body.errores);
+        alertEl.textContent = (r.body.error || 'No pudimos enviar tu solicitud.') + ' Tus datos siguen en el formulario.';
+        if (!r.body.errores) alertEl.focus();
+      })
+      .catch(function(){
+        clearTimeout(limite);
+        ocupado(false);
+        alertEl.textContent = 'No pudimos conectar con el servidor. Revisa tu conexión y vuelve a presionar “Solicitar información”; tus datos siguen en el formulario.';
+        alertEl.focus();
+      });
+  });
+})();
+</script>
+
+<!-- Botón volver al inicio -->
+<a href="#" id="back-to-top" aria-label="Volver al inicio">
+  <img src="logorvblanco.png" alt="" />
+  <span>volver al inicio</span>
+</a>
+<style>
+#back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+#back-to-top.visible { display: flex; }
+#back-to-top img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7));
+}
+#back-to-top:hover { transform: scale(1.1); }
+#back-to-top span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+}
+@media (max-width: 700px) {
+  #back-to-top { bottom: 1rem; right: 1rem; }
+  #back-to-top img { width: 52px; height: 52px; }
+}
+</style>
+<script>
+(function(){
+  var btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 300){ btn.classList.add('visible'); }
+    else { btn.classList.remove('visible'); }
+  });
+})();
+</script>
+</body>
+</html>
