@@ -119,12 +119,12 @@ async function notificar(env, db, id, s) {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         _subject: `Nueva solicitud de patrocinio: ${s.negocio}`,
-        ...(s.email ? { _replyto: s.email } : {}),
+        // Formspree valida "email" como correo: solo se envía si el patrocinador lo dio.
+        ...(s.email ? { _replyto: s.email, email: s.email } : {}),
         tipo: 'Patrocinio del podcast',
         negocio: s.negocio,
         contacto: s.contacto,
         whatsapp: s.whatsapp,
-        email: s.email || '(no proporcionado)',
         ciudad: s.ciudad,
         web_redes: s.web_redes || '(no proporcionado)',
         mensaje: s.mensaje || '(sin mensaje)',

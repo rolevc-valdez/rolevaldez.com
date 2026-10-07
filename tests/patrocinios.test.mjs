@@ -87,15 +87,20 @@ test('guarda una solicitud válida con fecha, estado "Nuevo" y datos normalizado
   assert.equal(llamadas[0].url, 'https://formspree.io/f/xnjyoerk');
   assert.equal(llamadas[0].body._subject, 'Nueva solicitud de patrocinio: Tacos El Güero');
   assert.equal(llamadas[0].body._replyto, 'ana@ejemplo.com');
+  assert.equal(llamadas[0].body.email, 'ana@ejemplo.com');
 });
 
 test('acepta opcionales vacíos', async () => {
-  const { res, db } = await enviar(valido({ email: '', web_redes: '', mensaje: '' }));
+  const { res, db, llamadas } = await enviar(valido({ email: '', web_redes: '', mensaje: '' }));
   assert.equal(res.status, 200);
   const [fila] = db.filas();
   assert.equal(fila.email, null);
   assert.equal(fila.web_redes, null);
   assert.equal(fila.mensaje, null);
+  // Formspree rechaza (422) un "email" que no sea correo: sin correo no se envía el campo.
+  assert.equal('email' in llamadas[0].body, false);
+  assert.equal('_replyto' in llamadas[0].body, false);
+  assert.equal(fila.notificado, 1);
 });
 
 test('rechaza campos obligatorios vacíos y no guarda nada', async () => {
